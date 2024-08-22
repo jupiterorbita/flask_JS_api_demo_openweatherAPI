@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- linking a css style sheet -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <!-- linking a javascript file -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+</head>
+
+<body>
+    <!-- linking an image -->
+    <!-- <img src="{{ url_for('static', filename='img/my_img.png') }}"> -->
+    <div class="container">
+        <!-- <form action="/weather/form/forecast" method="POST"> -->
+            <form action="/weather/form" method="POST">
+            <h1>Get Weather Data</h1>
+            <input type="text" id="city_name" name="city_name" placeholder="Enter city name">
+            <button>Get Weather</button>
+        </form>
+
+        <p></p>
+
+        {% for message in get_flashed_messages(category_filter=['city_name_err']) %} <!-- loop through the messages -->
+            <p style="color: red">{{message}}</p> <!-- display each message in a paragraph tag -->
+        {% endfor %}
+
+        <!-- {{session.weather}} -->
+        <div class="container">
+            {% if 'weather' in session: %}
+                <h3>{{session.weather.name}}</h3>
+                <h4>{{session.weather.temp | round | int}}&deg;F</h4>
+                <img src="https://openweathermap.org/img/wn/{{session.weather.icon}}@2x.png" alt="">
+                <p>{{session.weather.description}}</p>
+            {% endif %}
+        </div>
+        
+        
+        <!-- ======= FORECAST ========== -->
+        
+        {% if 'forecast' in session: %}
+            <h1>Weather Forecast</h1>
+            <ul>
+                {% for item in session.forecast %}
+                    <li>Timestamp: {{ item.local_time }}, Other Data: {{ item.other_data }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    <!-- <div class="container">
+        <h1>Get Weather Data</h1>
+        <input type="text" id="city" placeholder="Enter city name">
+        <button onclick="getWeather()">Get Weather</button>
+    </div> -->
+
+</body>
+
+</html>

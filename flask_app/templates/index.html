@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - reg page</title>
+</head>
+
+<body>
+    <h2>hello and welcome to login reg</h2>
+    <hr>
+    <div>
+        {% for message in get_flashed_messages(category_filter=['reg']) %} <!-- loop through the messages -->
+            <p style="color: red">{{message}}</p> <!-- display each message in a paragraph tag -->
+        {% endfor %}
+    </div>
+
+    <!-- ============== REGISTER ================= -->
+    <h3>REGISTER</h3>
+    <form action="/users/register" method="post">
+        <div>
+            first_name
+            <input name="first_name">
+        </div>
+        <div>
+            last_name
+            <input name="last_name">
+        </div>
+        <div>
+            email
+            <input name="email">
+        </div>
+        <div>
+            password
+            <input type="password" name="password">
+        </div>
+        <div>
+            confirm_password
+            <input type="password" name="confirm_password">
+        </div>
+
+        <input type="submit" value="Register">
+    </form>
+
+    
+    <!-- =========== LOGIN ================ -->
+    <h2>LOGIN</h2>
+    <div>
+        {% for message in get_flashed_messages(category_filter=['login']) %} <!-- loop through the messages -->
+            <p style="color: red">{{message}}</p> <!-- display each message in a paragraph tag -->
+        {% endfor %}
+    </div>
+    <form action="/users/login" method="post">
+
+        <div>
+            email
+            <input name="email">
+        </div>
+        <div>
+            password
+            <input type="password" name="password">
+        </div>
+        <input type="submit" value="Register">
+
+    </form>
+</body>
+
+</html>
